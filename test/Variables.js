@@ -88,11 +88,22 @@ describe('Variables', () => {
     })
 
     it('demonstrates "msg" & "tx" global variables', async () => {
+      // Add 1 eth as arg in pay function
       await contract.pay({value: ether(1)})
+
+      // Verify the value set in pay function arg is assigned to amount 
       expect(await contract.amount()).to.eq(ether(1))
       let accounts = await ethers.getSigners()
+
+      // Verify the tx origin & payer address
+      // Payer & Origin can differ; eg. Deployer(payer) vs User(origin)
       expect(await contract.payer()).to.eq(accounts[0].address)
       expect(await contract.origin()).to.eq(accounts[0].address)
+    })
+
+    it('demonstrates the "block" global variable', async () => {
+      let result = await contract.getBlockInfo()
+      console.log(result)
     })
   })
 })
