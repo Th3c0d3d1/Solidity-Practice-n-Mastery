@@ -99,3 +99,23 @@ contract Variables5 {
         );
     }
 }
+
+contract Variables6 {
+    // When no visiblilty given defaults to internal
+    string name1 = "Name 1";
+
+    // Private variables can only be accessed in the current contract
+    // Cannot* be accessed outside of contract
+    // Cannot* be accessed by another contract or inherited
+    // Anyone can decode the value; Never truly private
+    string private name2 = "Name 2";
+
+    // Can be inherited by another contract
+    string internal name3 = "Name 3";
+
+    // Public variables can be accessed internally & externally
+    // Can* be accessed outside of contract
+    // Can* be accessed by another contract or inherited
+    // Can be inherited by another contract
+    string public name4 = "Name 4";
+}

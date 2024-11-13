@@ -106,4 +106,18 @@ describe('Variables', () => {
       console.log(result)
     })
   })
+
+  describe('Example 6', async () => {
+    let contract
+
+    beforeEach(async () => {
+      const Contract = await ethers.getContractFactory("Variables6")
+      contract = await Contract.deploy()
+    })
+
+    it('defaults to internal', async () => {
+      // Verifying the variable visibility
+      expect(await contract.name1()).to.eq("Name 1")
+    })
+  })
 })
