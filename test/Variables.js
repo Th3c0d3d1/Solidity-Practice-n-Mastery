@@ -91,6 +91,10 @@ describe('Variables', () => {
       // Add 1 eth as arg in pay function
       await contract.pay({value: ether(1)})
 
+      // Uncomment the following line to log the result of paying 1 eth
+      // let result = await contract.pay({value: ether(1)})
+      // console.log(result)
+
       // Verify the value set in pay function arg is assigned to amount 
       expect(await contract.amount()).to.eq(ether(1))
       let accounts = await ethers.getSigners()
@@ -115,9 +119,24 @@ describe('Variables', () => {
       contract = await Contract.deploy()
     })
 
-    it('defaults to internal', async () => {
+    it('defaults to internal visibility', async () => {
       // Verifying the variable visibility
-      expect(await contract.name1()).to.eq("Name 1")
+      expect(await contract.getName1()).to.eq("Name 1")
+    })
+
+    it('cannot access private variable outside the contract', async () => {
+      // Uncomment the following line to cause an error
+      // expect(await contract.name2()).to.be.reverted;
+    })
+
+    it('can access internal variable within the contract', async () => {
+      // Internal variables are not accessible directly from outside the contract
+      // Uncomment the following line to cause an error
+      // expect(await contract.name3()).to.be.reverted;
+    })
+
+    it('can access public variable outside the contract', async () => {
+      expect(await contract.name4()).to.eq("Name 4")
     })
   })
 })
