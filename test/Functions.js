@@ -62,7 +62,6 @@ describe('Functions', () => {
       await contract.increment()
       expect(await contract.count()).to.equal(1)
     })
-
   })
 
   describe('Example 3', () => {
@@ -73,7 +72,6 @@ describe('Functions', () => {
       await contract.increment()
       expect(await contract.count()).to.equal(1)
     })
-
   })
 
   describe('Example 4', () => {
@@ -120,7 +118,6 @@ describe('Functions', () => {
       await contract.increment7()
       expect(await contract.count()).to.equal(1)
     })
-
   })
 
   describe('Example 5', () => {
@@ -143,7 +140,6 @@ describe('Functions', () => {
       await contract.pay({ value: ether(1) })
       expect(await contract.balance()).to.equal(ether(1))
     })
-
   })
 
   describe('Example 6', () => {
@@ -168,9 +164,7 @@ describe('Functions', () => {
       expect(await contract.name()).to.equal('New name')
       expect(await contract.connect(owner).setName1('New name')).to.be.reverted
     })
-
   })
-
 
   describe('Example 7', () => {
     let contract
@@ -225,6 +219,5 @@ describe('Functions', () => {
       await expect(transaction).to.emit(contract, 'NameChanged')
         .withArgs('New name')
     })
-
   })
 })

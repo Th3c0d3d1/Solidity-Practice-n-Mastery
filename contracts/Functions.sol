@@ -4,20 +4,23 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 // Read functions are free
-// Write functions cost gass
-// Write function with arguments
+// Write functions cost gas
+// Write function with arguments cost gas
 // Write functions without arguments
 contract Functions1 {
     string name = "Example 1";
 
+    // Write function with arguments
     function setName(string memory _name) public {
         name = _name;
     }
 
+    // Read Only function without arguments
     function getName() public view returns(string memory) {
         return name;
     }
 
+    // Write function without arguments
     function resetName() public {
         name = "Example 1";
     }
@@ -40,6 +43,7 @@ contract Functions2 {
 
 
 // Functions can be declared outside the contract
+// Can be used in multiple contracts
 function addNumbers(uint a, uint b) pure returns(uint) {
     return a + b;
 }
@@ -47,6 +51,7 @@ function addNumbers(uint a, uint b) pure returns(uint) {
 contract Functions3 {
     uint public count;
 
+    // Call the previous function from the global scope
     function increment() public {
         count = addNumbers(count, 1);
     }
@@ -65,13 +70,14 @@ contract Functions4 {
         count = count + 1;
     }
 
+    // Calls increment1
     function increment2() public {
         increment1();
     }
 
     // Only visible in the current contract
-    // You *can* call this from another function inside this contract
-    // You *cannot* call this from another contract
+    // *Can* call this from another function inside this contract
+    // *Cannot* call this from another contract
     function increment3() private {
         count = count + 1;
     }
@@ -80,15 +86,15 @@ contract Functions4 {
         increment3();
     }
 
-    // You cannot call this function inside another function.
-    // It won't even compile.
+    // Cannot call this function inside another function.
+    // Will not compile.
     function increment5() external {
         count = count + 1;
     }
 
-    // You cannot call this outside the contract
-    // You *can* call this from another function
-    // You *can* call this from an inherited contract
+    // Cannot call this outside the contract
+    // *Can* call this from another function
+    // *Can* call this from an inherited contract
     function increment6() internal {
         count = count + 1;
     }
@@ -98,29 +104,27 @@ contract Functions4 {
     }
 }
 
-// Modifiers
-// pure
-// view
-// payble
+// Modifiers -> pure, view, payble
 contract Functions5 {
     string public name = "Example 5";
     uint public balance;
 
     // View
-    // You *cannot* modify state (e.g. change name)
-    // You *can* accesss sate (e.g. read name)
+    // *Can not* modify state (e.g. change name)
+    // *Can* accesss sate (e.g. read name)
     function getName() public view returns(string memory) {
         return name;
     }
 
     // Pure
-    // You *cannot* modify state (e.g. change name)
-    // You *cannot* accesss sate (e.g. read name)
+    // *Can not* modify state (e.g. change name)
+    // *Can not* accesss sate (e.g. read name); eg. name = "New name"; inside function will not compile
     function add(uint a, uint b) public pure returns(uint) {
         return a + b;
     }
 
     // Payable
+    // Accepts cryptocurrency when tx is created
     function pay() public payable {
         balance = msg.value;
     }
@@ -136,11 +140,15 @@ contract Functions6 {
         owner = msg.sender;
     }
 
+    // Creating a custom modifier
+    // Only the owner can call this function
     modifier onlyOwner {
         require(msg.sender == owner, 'caller must be owner');
         _;
     }
 
+    // Custom modifier
+    // Only set the name once
     modifier onlyOnce {
         require(nameSet == false, 'can only set name once');
         _;
@@ -161,26 +169,33 @@ contract Functions6 {
 contract Functions7 {
     string name = "Example 7";
 
+    // Explicitly return a value
     function getName1() public view returns(string memory) {
         return name;
     }
 
+    // Implicitly return a default value if no return is provided
     function getName2() public view returns(string memory) {
         name;
     }
 
+    // Return a value from another function
     function getName3() public view returns(string memory) {
         return getName1();
     }
 
+    // Returns a named variable without declaring the type inline
     function getName4() public view returns(string memory anotherName) {
         anotherName = "Another name";
     }
 
+    // Reads the return value from another function as a variable & returns it
     function getName5() public view returns(string memory anotherName) {
         anotherName = getName4();
     }
 
+    // Returns multiple values
+    // Use a tuple to return multiple values; eg. (string memory, string memory)
     function getName6() public view returns(string memory name1, string memory name2) {
         return(name, "New name");
     }
