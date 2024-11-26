@@ -164,7 +164,6 @@ contract Functions6 {
     }
 }
 
-
 // Return Values
 contract Functions7 {
     string name = "Example 7";
@@ -185,6 +184,9 @@ contract Functions7 {
     }
 
     // Returns a named variable without declaring the type inline
+    // This is useful when the return type is complex
+    // Does not need return keyword
+    // Will look for a variable with the same name in the function
     function getName4() public view returns(string memory anotherName) {
         anotherName = "Another name";
     }
@@ -196,35 +198,49 @@ contract Functions7 {
 
     // Returns multiple values
     // Use a tuple to return multiple values; eg. (string memory, string memory)
+    // return statement must match the returns tuple
     function getName6() public view returns(string memory name1, string memory name2) {
         return(name, "New name");
     }
 
+    // Returns multiple values from another function
+    // Declare variables to be assigned in the tuple
     function getName7() public view returns(string memory name1, string memory name2) {
+        // Assigning values as parallel assignment
         (name1, name2) = getName6();
         return(name1, name2);
     }
 
-    // Values returned from a transaction are not available outside of EVM.
-    // Use events to accomplish this (see events lesson)
+    // Values returned from a transaction are not available outside of EVM
+    // Use events to accomplish this
     event NameChanged(string name);
 
     function setName1() public returns(string memory) {
+        // Update the name
         name = "New name";
+        // Emit NameChanged event
+        // This will be available outside of the EVM
+        // Name will not be available outside of the EVM
         emit NameChanged(name);
         return name;
     }
 
+    // Return value from another function
+    // Does not emit an event
     function setName2() public returns(string memory newName) {
         newName = "New name";
         name = newName;
         return name;
     }
 
+    // Return value from function setName2
+    // Emit an event
+    // Wrapping the behavior of setName2 in another function
+    // Inside of EVM, the name will be updated
+    // MM cannot access the updated name
     function setName3() public returns(string memory newName) {
         newName = setName2();
         emit NameChanged(newName);
         return newName;
     }
 }
-
