@@ -4,7 +4,10 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 
 contract Conditionals1 {
+    // Check if a number is even or odd
     function evenOrOdd1(uint x) public pure returns (string memory) {
+
+        // Use the modulo operator to check if the number is even or odd
         if (x % 2 == 0) {
             return "even";
         } else {
@@ -21,13 +24,14 @@ contract Conditionals1 {
     }
 
     function evenOrOdd3(uint x) public pure returns (string memory) {
+        // The ternary operator is a shorthand for an if-else statement
         return x % 2 == 0 ? "even" : "odd";
     }
 
 }
 
 contract Conditionals2 {
-
+    // Check if a number is positive, negative or zero
     function checkNumber1(uint x) public pure returns (uint) {
         if (x < 10 ) {
             return 0;
@@ -38,6 +42,7 @@ contract Conditionals2 {
         }
     }
 
+    // Using nested conditionals
     function checkNumber2(uint x) public pure returns (uint) {
         if (x < 10 ) {
             if (x < 5) {
@@ -52,4 +57,3 @@ contract Conditionals2 {
         }
     }
 }
-
