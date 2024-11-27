@@ -2,9 +2,7 @@ const { expect } = require('chai');
 const { ethers } = require('hardhat');
 
 describe('Conditionals', () => {
-
   describe('Example 1', () => {
-
     it('demonstrates conditionals', async () => {
       const Contract = await ethers.getContractFactory('Conditionals1')
       let contract = await Contract.deploy()
@@ -22,7 +20,6 @@ describe('Conditionals', () => {
   })
 
   describe('Example 2', () => {
-
     it('it demonstrates else if & nested conditionals', async () => {
       const Contract = await ethers.getContractFactory('Conditionals2')
       let contract = await Contract.deploy()

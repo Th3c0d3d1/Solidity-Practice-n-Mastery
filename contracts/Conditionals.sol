@@ -27,7 +27,6 @@ contract Conditionals1 {
         // The ternary operator is a shorthand for an if-else statement
         return x % 2 == 0 ? "even" : "odd";
     }
-
 }
 
 contract Conditionals2 {
