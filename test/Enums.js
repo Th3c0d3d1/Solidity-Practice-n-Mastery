@@ -25,5 +25,4 @@ describe('Enums', () => {
       expect(await contract.get()).to.equal(0)
     })
   })
-
 })
