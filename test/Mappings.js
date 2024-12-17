@@ -84,17 +84,21 @@ describe('Mappings', () => {
       const Contract = await ethers.getContractFactory('Mappings4')
       let contract = await Contract.deploy()
 
+      // Assign user addresses
       let user1 = '0x3EcEf08D0e2DaD803847E052249bb4F8bFf2D5bB'
       let user2 = '0x6B175474E89094C44Da98b954EedeAC495271d0F'
 
+      // Set user address & id values
       await contract.set(user1, 1, true)
       await contract.set(user1, 2, true)
       await contract.set(user2, 3, true)
 
+      // Check user address & id values
       expect(await contract.get(user1, 1)).to.equal(true)
       expect(await contract.get(user1, 2)).to.equal(true)
       expect(await contract.get(user2, 3)).to.equal(true)
 
+      // Remove user address & id values
       await contract.remove(user1, 1)
       expect(await contract.get(user1, 1)).to.equal(false)
     })
