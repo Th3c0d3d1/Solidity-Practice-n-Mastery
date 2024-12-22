@@ -3,11 +3,11 @@ pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 
-// Events are a way to log data on the blockchain
+// Events log data on the blockchain
 contract Events1 {
     string public message = "Hello World";
 
-    // Define an event
+    // Defining event
     // Note: events can have up to 17 arguments
     // You can use any basic data type you want (e.g. string, uint, address, bool, etc...)
     event MessageUpdated(
@@ -21,6 +21,10 @@ contract Events1 {
 
     function updateMessage(string memory _message) public {
         message = _message;
+
+        // Emitting event
+        // Can also be written using the state variable "message": 
+        // ---> emit MessageUpdated(msg.sender, message); <---
         emit MessageUpdated(msg.sender, _message);
     }
 }

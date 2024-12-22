@@ -16,11 +16,12 @@ describe('Events', () => {
       const Contract = await ethers.getContractFactory('Events1')
       let contract = await Contract.deploy()
 
-      // Pass value 'Hey!' into updateMessage function
       // Call the tx once & check the event log in real time
       let transaction = await contract.updateMessage('Hey!')
       await transaction.wait()
       await expect(transaction).to.emit(contract, 'MessageUpdated')
+
+      // Pass value 'Hey!' into updateMessage function
         .withArgs(user1.address, 'Hey!')
 
       // Calling it a few more times to get event history
@@ -30,18 +31,25 @@ describe('Events', () => {
       transaction = await contract.updateMessage('Ha!')
       await transaction.wait()
 
-      // Getting all past events (stream)
+      // Getting all past events (stream using ethersjs)
       // https://docs.ethers.io/v5/getting-started/#getting-started--history
       let eventStream = await contract.queryFilter('MessageUpdated')
+
       // Uncomment below to see the event stream
       // console.log(eventStream)
+
+      // Verify length for all events
       expect(eventStream.length).to.equal(3)
 
       // Check first event in the stream
       let firstEvent = eventStream[0]
+
       // Uncomment below to see the event stream
       // console.log(firstEvent)
+
+      // Verify user 1 message
       expect(firstEvent.args[1]).to.equal('Hey!')
+      // Verify user 1 address
       expect(firstEvent.args[0]).to.equal(user1.address)
 
 
@@ -49,7 +57,7 @@ describe('Events', () => {
       transaction = await contract.connect(user2).updateMessage('Huh!')
       await transaction.wait()
 
-      // Filter only events created by user2
+      // Create filter for only events created by user2
       // Unindexed parameters can't be filtered (e.g. message argument = null )
       // Indexed parameters can also left unfiltered by passing null
       let user2Filter = contract.filters.MessageUpdated(user2.address, null)
@@ -58,9 +66,12 @@ describe('Events', () => {
       eventStream = await contract.queryFilter(user2Filter)
       expect(eventStream.length).to.equal(1)
 
-      // Make sure it's user 2's message & address
+      // Check first event in the stream
       firstEvent = eventStream[0]
+
+      // Verify user 2 message
       expect(firstEvent.args[1]).to.equal('Huh!')
+      // Verify user 2 address
       expect(firstEvent.args[0]).to.equal(user2.address)
     })
   })
