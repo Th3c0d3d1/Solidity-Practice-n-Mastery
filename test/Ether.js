@@ -11,31 +11,35 @@ describe('Ether', () => {
 
   describe('Example 1', () => {
     it('demonstrates Ether units', async () => {
-      // Deploy contract with time settings
+
+      // Deploy contract with ether settings
       const Contract = await ethers.getContractFactory('Ether1')
       contract = await Contract.deploy()
 
+      // Check the variables against each other to ensure they are equal
       expect(await contract.value1()).to.equal(await contract.value2())
       expect(await contract.value3()).to.equal(await contract.value4())
       expect(await contract.value5()).to.equal(await contract.value6())
     })
-
   })
 
   describe('Example 2', () => {
-    it('demonstrates "#receive()" function', async () => {
-      // Deploy contract with time settings
+    it('demonstrates "receive()" function', async () => {
+      // Deploy contract with ether settings
       const Contract = await ethers.getContractFactory('Ether2')
       contract = await Contract.deploy()
 
+      // Get the accounts
       accounts = await ethers.getSigners()
       owner = accounts[0]
 
+      // Send 1 Ether to the contract
+      // Cannot send data unless using the fallback function
       await owner.sendTransaction({ to: contract.address, value: ether(1) })
+      // Check the balance of the contract
       expect(await ethers.provider.getBalance(contract.address)).to.equal(ether(1))
 
     })
-
   })
 
   describe('Example 3', () => {
@@ -51,7 +55,6 @@ describe('Ether', () => {
       expect(await contract.checkBalance()).to.equal(ether(1))
       expect(await contract.count()).to.equal(1)
     })
-
   })
 
   describe('Example 4', () => {
@@ -69,7 +72,6 @@ describe('Ether', () => {
       await contract.transfer2(receiver, { value: ether(1) })
       expect(await ethers.provider.getBalance(receiver)).to.equal(ether(2))
     })
-
   })
 
   describe('Example 5', () => {
@@ -79,12 +81,11 @@ describe('Ether', () => {
       contract = await Contract.deploy()
 
       // Uncomment this line to observe the failure!
+      // No payable function exists for deposit1
       // await contract.deposit1({ value: ether(1) })
 
       await contract.deposit2({ value: ether(1) })
       expect(await ethers.provider.getBalance(contract.address)).to.equal(ether(1))
     })
-
   })
-
 })

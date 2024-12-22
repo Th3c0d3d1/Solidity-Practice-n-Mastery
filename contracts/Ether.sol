@@ -5,6 +5,8 @@ import "hardhat/console.sol";
 
 // https://eth-converter.com/
 contract Ether1 {
+
+    // Declare contract state variables with Ether units
     uint public value1 = 1 wei;
     uint public value2 = 1;
     uint public value3 = 1 gwei;
@@ -14,7 +16,7 @@ contract Ether1 {
 }
 
 contract Ether2 {
-    // Allows contract to receive Ether
+    // Allows contract to receive Ether (receive() is a new function in Solidity 0.6)
     // msg.data must be empty
     receive() external payable {}
 }
@@ -30,24 +32,30 @@ contract Ether3 {
         count ++;
     }
 
-    // Shows how to get Ether blance of current contract, .i.e., "this"
+    // Shows how to get Ether blance of current contract: "this"
     function checkBalance() public view returns (uint) {
         return address(this).balance;
     }
 }
 
 
-// Transferring Ether
+// Transferring Ether from contract to another address
 contract Ether4 {
 
+    // Not preferred way to transfer Ether
     function transfer1(address payable _to) public payable {
         // Don't do it this way...
         _to.transfer(msg.value);
     }
 
+    // Preferred way to transfer Ether
+    // Can inspect return value to check if transfer was successful
+    // Can specify metadata for the transfer
     function transfer2(address payable _to) public payable {
         // Use #call() instead!
         (bool sent, ) = _to.call{value: msg.value}("");
+
+        // Check if transfer was successful
         require(sent, "Failed to send Ether");
     }
 }
