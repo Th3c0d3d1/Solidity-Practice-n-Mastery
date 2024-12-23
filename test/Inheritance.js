@@ -31,9 +31,7 @@ describe('Inheritance', () => {
       expect(await ethers.provider.getBalance(contract.address)).to.equal(ether(1))
       await contract.withdraw()
       expect(await ethers.provider.getBalance(contract.address)).to.equal(0)
-
     })
-
   })
 
   describe('Example 3', () => {
@@ -46,7 +44,6 @@ describe('Inheritance', () => {
       expect(await contract.decimals()).to.equal(18)
       expect(await contract.totalSupply()).to.equal(tokens(1000000)) // 1 million
     })
-
   })
 
   describe('Example 4', () => {
@@ -62,9 +59,6 @@ describe('Inheritance', () => {
       expect(await contract.decimals()).to.equal(18)
       expect(await contract.totalSupply()).to.equal(tokens(1000000)) // 1 million
       expect(await contract.balanceOf(owner.address)).to.equal(tokens(10000000)) // 10 million
-
     })
-
   })
-
 })
