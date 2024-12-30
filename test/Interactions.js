@@ -33,25 +33,29 @@ describe('Interactions', () => {
     })
   })
 
-  // describe('Example 2', () => {
+  describe('Example 2', () => {
 
-  //   it('demonstrates simple contract interaction', async () => {
-  //     const Token = await ethers.getContractFactory('Token')
-  //     let token = await Token.deploy('My Token', 'MTK', tokens(1000000))
+    // Deploy Token
+    it('demonstrates simple contract interaction', async () => {
+      const Token = await ethers.getContractFactory('Token')
+      let token = await Token.deploy('My Token', 'MTK', tokens(1000000))
 
-  //     const Contract = await ethers.getContractFactory('Interactions2')
-  //     let contract = await Contract.deploy()
+      // Deploy Interactions2
+      const Contract = await ethers.getContractFactory('Interactions2')
+      let contract = await Contract.deploy()
 
-  //     accounts = await ethers.getSigners()
-  //     owner = accounts[0]
+      // Get accounts
+      accounts = await ethers.getSigners()
+      // Set owner
+      owner = accounts[0]
 
-  //     // Approve tokens
-  //     await token.approve(contract.address, tokens(1000000))
-  //     // Deposit
-  //     await contract.deposit(token.address, tokens(1000000))
+      // Approve tokens
+      await token.approve(contract.address, tokens(1000000))
+      // Deposit
+      await contract.deposit(token.address, tokens(1000000))
 
-  //     expect(await token.balanceOf(contract.address)).to.equal(tokens(1000000))
-  //   })
-  // })
-
+      // Check if contract has 1,000,000 tokens
+      expect(await token.balanceOf(contract.address)).to.equal(tokens(1000000))
+    })
+  })
 })

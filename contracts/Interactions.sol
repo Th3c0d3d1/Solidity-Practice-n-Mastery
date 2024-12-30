@@ -39,10 +39,12 @@ contract Interactions1 {
         secretVault = _secretVault;
     }
 
+    // This function allows the contract to set the secret in the SecretVault contract
     function setSecret(string memory _secret) public {
         secretVault.setSecret(_secret);
     }
 
+    // This function allows the contract to get the secret from the SecretVault contract
     function getSecret() public view returns(string memory) {
         return secretVault.getSecret();
     }
@@ -51,6 +53,8 @@ contract Interactions1 {
 import "./Token.sol";
 
 interface IERC20 {
+
+    // Returns the total token supply
     function transferFrom(
         address _from,
         address _to,
@@ -62,7 +66,9 @@ interface IERC20 {
 
 contract Interactions2 {
 
+    // This function allows the contract to deposit tokens into the contract
     function deposit(address _tokenAddress, uint _amount) public {
+        // Transfer the tokens from the sender to the contract
         IERC20(_tokenAddress).transferFrom(msg.sender, address(this), _amount);
     }
 }
