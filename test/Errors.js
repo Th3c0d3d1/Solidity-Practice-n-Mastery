@@ -29,6 +29,5 @@ describe('Errors', () => {
       await expect(contract.example4(5)).to.be.reverted
       await expect(contract.example4(20)).to.be.fulfilled
     })
-
   })
 })
