@@ -55,9 +55,7 @@ This project serves as a learning resource for Solidity developers, showcasing e
 
 ## Setup Instructions
 
-1. **Clone the repository**: git clone https://github.com/your-username/solidity-masterclass.git
-
-git clone https://github.com/Th3c0d3d1/Solidity-Practice-n-Mastery.git
+1. **Clone the repository**: git clone https://github.com/Th3c0d3d1/Solidity-Practice-n-Mastery.git
 
 
 2. **Install dependencies**: npm install
